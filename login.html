@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TS Toolbox — Sign in</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fonts similar vibe to your toolbox -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#0b1020;
+      --bg1:#0d1630;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.04);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.65);
+      --border:rgba(255,255,255,.14);
+      --border2:rgba(255,255,255,.22);
+      --blue:#1f7bd6;
+      --blue2:#2e73b8;
+      --shadow:0 18px 60px rgba(0,0,0,.45);
+      --r:14px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 15%, rgba(46,115,184,.22), transparent 55%),
+        radial-gradient(900px 700px at 90% 10%, rgba(31,123,214,.18), transparent 50%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+    }
+
+    /* Top bar */
+    .topbar{
+      position:sticky; top:0; z-index:10;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+      padding:14px 18px;
+      background: rgba(11,16,32,.72);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand{ display:flex; align-items:center; gap:14px; min-width:0; }
+    .logo{
+      height:44px; width:auto; display:block;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+    }
+    .brandText{ line-height:1.1; min-width:0; }
+    .brandText .title{
+      font-family: Oswald, Inter, sans-serif;
+      letter-spacing:.3px;
+      font-size:20px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .brandText .sub{
+      margin-top:4px;
+      font-size:12.5px;
+      color:var(--muted);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+
+    .pillLink{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .pillLink:hover{ border-color:var(--border2); background: rgba(255,255,255,.06); }
+
+    /* Center card */
+    .wrap{
+      min-height: calc(100vh - 64px);
+      display:grid;
+      place-items:center;
+      padding:28px 18px 30px;
+    }
+    .card{
+      width:min(440px, 100%);
+      border:1px solid var(--border);
+      border-radius: var(--r);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .cardHead{
+      padding:18px 18px 14px;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .cardHead h1{
+      margin:0;
+      font-size:16px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .cardHead .meta{
+      margin-top:4px;
+      font-size:12.5px;
+      color:var(--muted);
+    }
+    .tag{
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:12px;
+      font-weight:800;
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+    }
+
+    form{ padding:16px 18px 18px; }
+    .field{ margin-top:12px; }
+    .labelRow{
+      display:flex; justify-content:space-between; gap:10px; align-items:baseline;
+      margin-bottom:6px;
+    }
+    label{ font-size:12.5px; font-weight:800; color: rgba(255,255,255,.86); }
+    .hint{ font-size:12px; color: var(--muted); }
+
+    input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.045);
+      color: var(--text);
+      outline:none;
+      font-size:14px;
+    }
+    input::placeholder{ color: rgba(255,255,255,.45); }
+    input:focus{
+      border-color: rgba(46,115,184,.55);
+      box-shadow: 0 0 0 3px rgba(46,115,184,.18);
+    }
+
+    .error{
+      margin-top:12px;
+      border:1px solid rgba(245,158,11,.25);
+      background: rgba(245,158,11,.10);
+      color: rgba(255,255,255,.90);
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:13px;
+      display:none;
+    }
+    .error.show{ display:block; }
+
+    button{
+      margin-top:16px;
+      width:100%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid rgba(31,123,214,.45);
+      background: linear-gradient(180deg, rgba(31,123,214,.40), rgba(31,123,214,.22));
+      color: var(--text);
+      font-weight:900;
+      cursor:pointer;
+    }
+    button:hover{ border-color: rgba(31,123,214,.70); }
+    button:disabled{ opacity:.7; cursor:not-allowed; }
+
+    .foot{
+      margin-top:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      color: var(--muted);
+      font-size:12px;
+    }
+    kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12px;
+      padding:4px 7px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+    }
+
+    .pageFooter{
+      padding:12px 18px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      color: var(--muted);
+    }
+    .pageFooter .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; font-weight:800;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:7px 10px;
+      background: rgba(255,255,255,.03);
+    }
+
+    @media (max-width: 820px){
+      .topbar{ flex-direction:column; align-items:stretch; }
+      .pillLink{ justify-content:center; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <!-- IMPORTANT: logo path is relative to /login.html -->
+      <img class="logo" src="/logo.png" alt="Technology Services logo">
+      <div class="brandText">
+        <div class="title">TS Toolbox</div>
+        <div class="sub">Internal downloads and utilities</div>
+      </div>
+    </div>
+
+    <a class="pillLink" href="https://www.techserviceswi.com" target="_blank" rel="noopener">
+      techserviceswi.com
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 14 19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </a>
+  </header>
+
+  <main class="wrap">
+    <section class="card" aria-label="Sign in">
+      <div class="cardHead">
+        <div>
+          <h1>Sign in</h1>
+          <div class="meta">Authorized staff only</div>
+        </div>
+        <div class="tag">Internal</div>
+      </div>
+
+      <form id="loginForm" method="post" action="/api/login" novalidate>
+        <div class="field">
+          <div class="labelRow">
+            <label for="username">Username</label>
+            <span class="hint">Case sensitive</span>
+          </div>
+          <input id="username" name="username" autocomplete="username" placeholder="username" required>
+        </div>
+
+        <div class="field">
+          <div class="labelRow">
+            <label for="password">Password</label>
+            <span class="hint">No self-service reset</span>
+          </div>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••••" required>
+        </div>
+
+        <div id="err" class="error" role="alert" aria-live="polite"></div>
+
+        <button id="submitBtn" type="submit">
+          <span>Sign in</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M10 17l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="foot">
+          <span>Tip: press <kbd>Enter</kbd> to submit</span>
+          <span>Toolbox Auth</span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pageFooter">
+    <span class="pill">Internal use only</span>
+    <span>© Technology Services LLC</span>
+  </footer>
+
+  <script>
+    (function () {
+      const form = document.getElementById('loginForm');
+      const err = document.getElementById('err');
+      const btn = document.getElementById('submitBtn');
+
+      function showError(msg){
+        err.textContent = msg;
+        err.classList.add('show');
+      }
+      function clearError(){
+        err.textContent = '';
+        err.classList.remove('show');
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearError();
+
+        btn.disabled = true;
+        const old = btn.innerHTML;
+        btn.textContent = 'Signing in...';
+
+        try {
+          const data = new URLSearchParams(new FormData(form));
+          const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: data
+          });
+
+          if (!res.ok) {
+            showError('Invalid username or password.');
+            return;
+          }
+          window.location = '/';
+        } catch (e2) {
+          showError('Login failed (network error).');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = old;
+        }
+      });
+
+      document.getElementById('username')?.focus();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="https://techserviceswi.com/wp-content/uploads/2022/12/favicon.ico" sizes="32x32" />
+  <link rel="icon" href="https://techserviceswi.com/wp-content/uploads/2022/12/favicon.ico" sizes="192x192" />
+  <link rel="apple-touch-icon" href="https://techserviceswi.com/wp-content/uploads/2022/12/favicon.ico" />
+  <meta name="msapplication-TileImage" content="https://techserviceswi.com/wp-content/uploads/2022/12/favicon.ico" />
+
+  <title>TS Toolbox</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="app">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand__logo" src="logo.png" alt="Technology Services logo" />
+        <div class="brand__text">
+          <div class="brand__title">TS Toolbox</div>
+          <div class="brand__subtitle">Internal downloads and utilities</div>
+        </div>
+      </div>
+
+      <div class="topbar__right">
+        <div class="search">
+          <span class="search__icon" aria-hidden="true">
+            <!-- magnifier -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M10.5 18.5a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <input id="searchInput" class="search__input" type="search" placeholder="Search tools, installers, versions..." autocomplete="off" />
+          <button id="clearSearchBtn" class="search__clear" type="button" aria-label="Clear search" title="Clear">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M6 6 18 18M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <a class="external-link" href="https://www.techserviceswi.com" target="_blank" rel="noopener">
+          techserviceswi.com
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 14 19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </a>
+
+        <!-- NEW LOGOUT (POST /api/logout) -->
+        <form action="/api/logout" method="POST" class="logout-form">
+          <button type="submit" class="logout-button" title="Log out">Logout</button>
+        </form>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="panel">
+        <div class="panel__header">
+          <div class="panel__heading">Downloads</div>
+          <div class="panel__meta" id="resultsMeta">Loading…</div>
+        </div>
+
+        <div id="categories" class="categories" aria-live="polite"></div>
+
+        <div id="emptyState" class="empty" hidden>
+          <div class="empty__icon" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
+              <path d="M10.5 18.5a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="empty__title">No matches</div>
+          <div class="empty__text">Try a different search term.</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__left">
+        <span class="pill">Internal use only</span>
+      </div>
+      <div class="footer__right">
+        <span class="muted">Tip: press</span>
+        <kbd>/</kbd>
+        <span class="muted">to focus search</span>
+      </div>
+    </footer>
+
+    <!-- Toasts -->
+    <div id="toastHost" class="toasts" aria-live="polite" aria-atomic="true"></div>
+  </div>
+</body>
+</html>
