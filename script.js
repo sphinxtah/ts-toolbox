@@ -17,6 +17,7 @@
         { name: 'Splashtop Streamer - Z stock', href: '/downloads/Splashtop_Streamer_Windows_v3.8.0.4.exe', desc: 'Version 3.8.0.4 - Remote Client Management - Z Stock' },
         { name: 'Sentinel One', href: '/downloads/SentinelInstaller_windows_64bit_v25_1_4_434.msi', desc: 'Version 25.1.4.434' },
         { name: 'Ninite', href: '/downloads/tsninite.exe', desc: 'Package includes Chrome, .NET 4.8, and more' },
+        { name: 'Unifi Identity Endpoint', href: '/downloads/identityendpoint.exe', desc: 'Unifi Identity Endpoint' },
       ],
     },
     {
