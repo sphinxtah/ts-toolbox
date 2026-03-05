@@ -2,7 +2,7 @@
   'use strict';
 
   // ----------------------------
-  // Data model (easy to maintain)
+  // Data model
   // ----------------------------
   const DATA = [
     {
@@ -56,8 +56,6 @@
         { name: 'HWiNFO', href: '/downloads/hwi_824.zip', desc: 'Version 8.22.5670 - Hardware information tool' },
         { name: 'Malwarebytes', href: '/downloads/MBSetup.exe', desc: 'Version 5.3 - Malware and threat removal tool' },
         { name: 'AdwCleaner', href: '/downloads/adwcleaner.exe', desc: 'Version 8.5.0 - Adware and PUP cleanup utility' },
-
-        // Added per request:
         { name: 'SpaceSniffer', href: '/downloads/spacesniffer_1_3_0_2.zip', desc: 'Version 1.3.0.2 - Disk space visualization tool' },
       ],
     },
