@@ -82,7 +82,7 @@ app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
   const [rows] = await pool.execute(
-    `SELECT id, username, password_hash FROM users WHERE username = ?`,
+    `SELECT id, username, password_hash, role FROM users WHERE username = ?`,
     [username]
   );
 
@@ -92,7 +92,11 @@ app.post('/api/login', async (req, res) => {
   if (!valid) return res.status(401).send('Invalid login');
 
   const sid = newSessionId();
-  await saveSession(sid, { id: rows[0].id, username: rows[0].username });
+  await saveSession(sid, {
+    id: rows[0].id,
+    username: rows[0].username,
+    role: rows[0].role
+  });
 
   res.cookie(COOKIE_NAME, sid, {
     httpOnly: true,
